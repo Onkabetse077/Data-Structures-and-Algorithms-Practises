@@ -1,0 +1,35 @@
+1. What is Big-O Notation?
+ *Big O Notation is used to describe the performance of an algorithm.
+ 
+ #O(1) – Constant Time
+
+ *What it means: The algorithm takes the same amount of time no matter how big the input is.
+
+ *Analogy: You have a stack of papers and you just grab the top one — whether there are 5 or 5,000 papers, it takes the same time.
+
+ #O(n) – Linear Time
+
+ *What it means: The algorithm takes time proportional to the size of the input. Double the input, double the time.
+
+ *Analogy: You check each paper in a stack one by one. More papers = more time.
+
+2.What O(n²) Means
+
+ #O(n²) is called quadratic time.
+
+ *It happens when the amount of work grows like the square of the input size.
+
+ *In simpler terms: if you double the input, the work roughly quadruples.
+
+ #Real-Life Example:
+
+ *Imagine you’re in a classroom and you want every student to shake hands with every other student.
+
+ *5 students → 5 × 5 = 25 handshakes (well, actually 10, but for growth we think of n²)
+
+ *10 students → 10 × 10 = 100 handshakes
+
+ *100 students → 100 × 100 = 10,000 handshakes
+
+ *Notice how the work grows really fast as more people are added. That’s O(n²).
+ 
