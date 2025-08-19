@@ -13,6 +13,7 @@
 
  *Analogy: You check each paper in a stack one by one. More papers = more time.
 
+
 2.What O(n²) Means
 
  #O(n²) is called quadratic time.
@@ -33,6 +34,7 @@
 
  *Notice how the work grows really fast as more people are added. That’s O(n²).
 
+
 3.What O(n³) Means
 
 *It’s called cubic time.
@@ -52,4 +54,22 @@
 *With 100 students → the number of groups explodes.
 
 *The work grows very fast because you’re considering 3 levels of choices.
+
+
+4.What is O(log n)?
+
+ *Called logarithmic time.
+
+ *The work grows very slowly as n increases.
+
+ #Example: Binary Search → cut the search space in half each step.
+
+ *If you have n = 16 elements, it only takes at most log₂(16) = 4 steps to find something!
+
  
+5.O(log n) binary search can be written in two styles:
+
+ *Iterative (loop-based) → what I already showed you.
+
+ *Recursive (function calls itself) → also O(log n).
+

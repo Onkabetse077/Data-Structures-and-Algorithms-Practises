@@ -2,12 +2,12 @@
 #include <vector>
 using namespace std;
 
-// O(1) - Constant time
+// ------------------ O(1) ------------------
 void constantExample(vector<int>& arr) {
     cout << "\nO(1) Example: First element is " << arr[0] << endl;
 }
 
-// O(n) - Linear time
+// ------------------ O(n) ------------------
 void linearExample(vector<int>& arr) {
     cout << "\nO(n) Example: Printing all elements -> ";
     for (int i = 0; i < arr.size(); i++) {
@@ -16,7 +16,7 @@ void linearExample(vector<int>& arr) {
     cout << endl;
 }
 
-// O(n^2) - Quadratic time
+// ------------------ O(n^2) ------------------
 void quadraticExample(vector<int>& arr) {
     cout << "\nO(n^2) Example: All pairs -> " << endl;
     for (int i = 0; i < arr.size(); i++) {
@@ -27,7 +27,7 @@ void quadraticExample(vector<int>& arr) {
     }
 }
 
-// O(n^3) - Cubic time
+// ------------------ O(n^3) ------------------
 void cubicExample(vector<int>& arr) {
     cout << "\nO(n^3) Example: All triplets -> " << endl;
     for (int i = 0; i < arr.size(); i++) {
@@ -41,44 +41,63 @@ void cubicExample(vector<int>& arr) {
     }
 }
 
-// O(log n) - Logarithmic time (Binary Search)
-int binarySearch(vector<int>& arr, int target) {
+// ------------------ O(log n) Iterative ------------------
+int binarySearchIterative(vector<int>& arr, int target) {
     int left = 0;
     int right = arr.size() - 1;
 
     while (left <= right) {
         int mid = left + (right - left) / 2;
 
-        if (arr[mid] == target) {
+        if (arr[mid] == target)
             return mid; // found
-        }
-        else if (arr[mid] < target) {
+        else if (arr[mid] < target)
             left = mid + 1; // search right half
-        }
-        else {
+        else
             right = mid - 1; // search left half
-        }
     }
     return -1; // not found
 }
 
+// ------------------ O(log n) Recursive ------------------
+int binarySearchRecursive(vector<int>& arr, int left, int right, int target) {
+    if (left > right) return -1; // base case: not found
+
+    int mid = left + (right - left) / 2;
+
+    if (arr[mid] == target)
+        return mid; // found
+    else if (arr[mid] < target)
+        return binarySearchRecursive(arr, mid + 1, right, target); // right half
+    else
+        return binarySearchRecursive(arr, left, mid - 1, target); // left half
+}
+
+// ------------------ MAIN ------------------
 int main() {
     vector<int> numbers = { 1, 2, 3, 4, 5 };
 
-    // Demonstrate different complexities
+    // O(1), O(n), O(n^2), O(n^3)
     constantExample(numbers);
     linearExample(numbers);
     quadraticExample(numbers);
     cubicExample(numbers);
 
-    // Binary search demo
+    // O(log n) Iterative & Recursive
     vector<int> sortedNumbers = { 1, 3, 5, 7, 9, 11, 13, 15 };
     int target = 7;
-    int index = binarySearch(sortedNumbers, target);
 
-    cout << "\nO(log n) Example: Searching for " << target << endl;
-    if (index != -1)
-        cout << "Found " << target << " at index " << index << endl;
+    int indexIter = binarySearchIterative(sortedNumbers, target);
+    cout << "\nO(log n) Iterative: Searching for " << target << endl;
+    if (indexIter != -1)
+        cout << "Found at index " << indexIter << endl;
+    else
+        cout << "Not found" << endl;
+
+    int indexRec = binarySearchRecursive(sortedNumbers, 0, sortedNumbers.size() - 1, target);
+    cout << "\nO(log n) Recursive: Searching for " << target << endl;
+    if (indexRec != -1)
+        cout << "Found at index " << indexRec << endl;
     else
         cout << "Not found" << endl;
 
