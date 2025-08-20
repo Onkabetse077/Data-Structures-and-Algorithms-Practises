@@ -65,11 +65,22 @@
  #Example: Binary Search → cut the search space in half each step.
 
  *If you have n = 16 elements, it only takes at most log₂(16) = 4 steps to find something!
-
  
-5.O(log n) binary search can be written in two styles:
+ #O(log n) binary search can be written in two styles:
 
  *Iterative (loop-based) → what I already showed you.
 
  *Recursive (function calls itself) → also O(log n).
 
+
+6.What is O(n log n)?
+
+ *Common in efficient sorting algorithms (Merge Sort, Quick Sort, Heap Sort).
+
+ #Why?
+
+ *The log n part comes from splitting the array into halves repeatedly.
+
+ *The n part comes from processing all elements at each level of splitting.
+
+ *Total work = n × log n.
