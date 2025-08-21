@@ -84,3 +84,11 @@
  *The n part comes from processing all elements at each level of splitting.
 
  *Total work = n × log n.
+
+ #Why Merge Sort is O(n log n)
+
+ *Divide: Split the array in half each time → that’s the log n part.
+
+ *Conquer: At each level, you still need to look at all n elements during merging → that’s the n part.
+
+ *Total work = n × log n.

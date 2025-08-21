@@ -2,34 +2,37 @@
 #include <vector>
 using namespace std;
 
-// ------------------ O(1) ------------------
-void constantExample(vector<int>& arr) {
-    cout << "\nO(1) Example: First element is " << arr[0] << endl;
+// -------------------- O(1) --------------------
+void constantExample() {
+    cout << "O(1) Example: Constant Time" << endl;
+    int x = 42;
+    cout << "Answer: " << x << "\n\n";
 }
 
-// ------------------ O(n) ------------------
+// -------------------- O(n) --------------------
 void linearExample(vector<int>& arr) {
-    cout << "\nO(n) Example: Printing all elements -> ";
-    for (int i = 0; i < arr.size(); i++) {
-        cout << arr[i] << " ";
+    cout << "O(n) Example: Linear Time" << endl;
+    for (int x : arr) {
+        cout << x << " ";
     }
-    cout << endl;
+    cout << "\n\n";
 }
 
-// ------------------ O(n^2) ------------------
+// -------------------- O(n^2) --------------------
 void quadraticExample(vector<int>& arr) {
-    cout << "\nO(n^2) Example: All pairs -> " << endl;
+    cout << "O(n^2) Example: Quadratic Time" << endl;
     for (int i = 0; i < arr.size(); i++) {
         for (int j = 0; j < arr.size(); j++) {
             cout << "(" << arr[i] << "," << arr[j] << ") ";
         }
         cout << endl;
     }
+    cout << endl;
 }
 
-// ------------------ O(n^3) ------------------
+// -------------------- O(n^3) --------------------
 void cubicExample(vector<int>& arr) {
-    cout << "\nO(n^3) Example: All triplets -> " << endl;
+    cout << "O(n^3) Example: Cubic Time" << endl;
     for (int i = 0; i < arr.size(); i++) {
         for (int j = 0; j < arr.size(); j++) {
             for (int k = 0; k < arr.size(); k++) {
@@ -39,41 +42,41 @@ void cubicExample(vector<int>& arr) {
         }
         cout << endl;
     }
+    cout << endl;
 }
 
-// ------------------ O(log n) Iterative ------------------
+// -------------------- O(log n) --------------------
+// Iterative Binary Search
 int binarySearchIterative(vector<int>& arr, int target) {
-    int left = 0;
-    int right = arr.size() - 1;
-
+    int left = 0, right = arr.size() - 1;
     while (left <= right) {
         int mid = left + (right - left) / 2;
-
-        if (arr[mid] == target)
-            return mid; // found
-        else if (arr[mid] < target)
-            left = mid + 1; // search right half
-        else
-            right = mid - 1; // search left half
+        if (arr[mid] == target) return mid;
+        else if (arr[mid] < target) left = mid + 1;
+        else right = mid - 1;
     }
-    return -1; // not found
+    return -1;
 }
 
-// ------------------ O(log n) Recursive ------------------
+// Recursive Binary Search
 int binarySearchRecursive(vector<int>& arr, int left, int right, int target) {
-    if (left > right) return -1; // base case: not found
-
+    if (left > right) return -1;
     int mid = left + (right - left) / 2;
-
-    if (arr[mid] == target)
-        return mid; // found
-    else if (arr[mid] < target)
-        return binarySearchRecursive(arr, mid + 1, right, target); // right half
-    else
-        return binarySearchRecursive(arr, left, mid - 1, target); // left half
+    if (arr[mid] == target) return mid;
+    else if (arr[mid] < target) return binarySearchRecursive(arr, mid + 1, right, target);
+    else return binarySearchRecursive(arr, left, mid - 1, target);
 }
 
-// ------------------ O(n log n) - Merge Sort ------------------
+// -------------------- O(n log n) --------------------
+void printArray(vector<int>& arr, int left, int right) {
+    cout << "[";
+    for (int i = left; i <= right; i++) {
+        cout << arr[i];
+        if (i < right) cout << ", ";
+    }
+    cout << "]";
+}
+
 void merge(vector<int>& arr, int left, int mid, int right) {
     int n1 = mid - left + 1;
     int n2 = right - mid;
@@ -87,59 +90,57 @@ void merge(vector<int>& arr, int left, int mid, int right) {
         if (L[i] <= R[j]) arr[k++] = L[i++];
         else arr[k++] = R[j++];
     }
-
     while (i < n1) arr[k++] = L[i++];
     while (j < n2) arr[k++] = R[j++];
 }
 
-void mergeSort(vector<int>& arr, int left, int right) {
+void mergeSort(vector<int>& arr, int left, int right, int depth = 0) {
     if (left < right) {
         int mid = left + (right - left) / 2;
-        mergeSort(arr, left, mid);       // sort left half
-        mergeSort(arr, mid + 1, right);  // sort right half
-        merge(arr, left, mid, right);    // merge halves
+
+        cout << string(depth * 2, ' ') << "Splitting: ";
+        printArray(arr, left, right);
+        cout << endl;
+
+        mergeSort(arr, left, mid, depth + 1);
+        mergeSort(arr, mid + 1, right, depth + 1);
+
+        merge(arr, left, mid, right);
+
+        cout << string(depth * 2, ' ') << "Merging:  ";
+        printArray(arr, left, right);
+        cout << endl;
     }
 }
 
-// ------------------ MAIN ------------------
+// -------------------- MAIN --------------------
 int main() {
-    vector<int> numbers = { 1, 2, 3, 4, 5 };
+    vector<int> arr = { 1, 2, 3, 4 };
+    vector<int> sortedArr = { 1, 3, 5, 7, 9, 11 };
+    vector<int> mergeArr = { 38, 27, 43, 3, 9, 82, 10 };
 
-    // O(1), O(n), O(n^2), O(n^3)
-    constantExample(numbers);
-    linearExample(numbers);
-    quadraticExample(numbers);
-    cubicExample(numbers);
+    constantExample();
+    linearExample(arr);
+    quadraticExample(arr);
+    cubicExample(arr);
 
-    // O(log n) Iterative & Recursive
-    vector<int> sortedNumbers = { 1, 3, 5, 7, 9, 11, 13, 15 };
-    int target = 7;
+    cout << "O(log n) Example: Binary Search (Iterative)" << endl;
+    int index = binarySearchIterative(sortedArr, 7);
+    cout << "Found 7 at index: " << index << "\n\n";
 
-    int indexIter = binarySearchIterative(sortedNumbers, target);
-    cout << "\nO(log n) Iterative: Searching for " << target << endl;
-    if (indexIter != -1)
-        cout << "Found at index " << indexIter << endl;
-    else
-        cout << "Not found" << endl;
+    cout << "O(log n) Example: Binary Search (Recursive)" << endl;
+    index = binarySearchRecursive(sortedArr, 0, sortedArr.size() - 1, 7);
+    cout << "Found 7 at index: " << index << "\n\n";
 
-    int indexRec = binarySearchRecursive(sortedNumbers, 0, sortedNumbers.size() - 1, target);
-    cout << "\nO(log n) Recursive: Searching for " << target << endl;
-    if (indexRec != -1)
-        cout << "Found at index " << indexRec << endl;
-    else
-        cout << "Not found" << endl;
+    cout << "O(n log n) Example: Merge Sort\n" << endl;
+    cout << "Original: ";
+    for (int x : mergeArr) cout << x << " ";
+    cout << "\n\n";
 
-    // O(n log n) - Merge Sort
-    vector<int> arr = { 38, 27, 43, 3, 9, 82, 10 };
-    cout << "\nO(n log n) Example: Merge Sort" << endl;
-    cout << "Unsorted: ";
-    for (int x : arr) cout << x << " ";
-    cout << endl;
+    mergeSort(mergeArr, 0, mergeArr.size() - 1);
 
-    mergeSort(arr, 0, arr.size() - 1);
-
-    cout << "Sorted:   ";
-    for (int x : arr) cout << x << " ";
+    cout << "\nSorted:   ";
+    for (int x : mergeArr) cout << x << " ";
     cout << endl;
 
     return 0;
